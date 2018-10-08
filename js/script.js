@@ -1,6 +1,13 @@
 /* start the external action and say hello */
 console.log("App is alive");
 
+/*Intialize the app*/
+$(document).ready(function(){
+    listChannels(compareNew);
+    loadEmojis();
+    console.log("App is initialized");
+});
+
 /** #10 global #array of channels #arr*/
 var channels = [
     yummy,
@@ -27,7 +34,7 @@ var currentLocation = {
  * Switch channels name in the right app bar
  * @param channelObject
  */
-function switchChannel(channelObject) {
+function switchChannel(channelObject, channelElement) {
     // Log the channel switch
     console.log("Tuning in to channel", channelObject);
 
@@ -54,8 +61,20 @@ function switchChannel(channelObject) {
     $('#channels li').removeClass('selected');
     $('#channels li:contains(' + channelObject.name + ')').addClass('selected');
 
+
+    //New not working 
+    //#select highlight the selected #channel.
+    /*$(channelElement).addClass('selected');*/
+
     /* store selected channel in global variable */
-    currentChannel = channelObject;
+    /*currentChannel = channelObject;*/
+
+    schowMessages(channelObject);
+}
+
+
+function showMessages(channelObject){
+    $(channelObject.messages).each(createMessageElement());
 }
 
 /* liking a channel on #click */
@@ -225,6 +244,9 @@ function listChannels(criterion) {
     for (i = 0; i < channels.length; i++) {
         $('#channels ul').append(createChannelElement(channels[i]));
     };
+
+    //NEEEEWWWWWW
+    /*$(currentChannel).addClass('selected');*/
 }
 
 /**
@@ -327,6 +349,14 @@ function createChannelElement(channelObject) {
 
     // return the complete channel
     return channel;
+    
+    //nnnneeeeww
+    //attach a click event listener to <li> 
+    /*var channel = $('<li>').text(channelObject.name);
+
+    channel.click(function () {
+        switchChannel(channelObject, this)
+    });*/
 }
 
 /**
