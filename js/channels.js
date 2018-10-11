@@ -16,7 +16,14 @@ var sevencontinents = {
     starred: true,
     expiresIn: 60,
     messageCount: 5,
-    messages : []           // #10 #message s property in #chl object
+    messages : [{createdBy: "shelf.jetted.purple",
+                latitude: 48.249586,
+                longitude: 11.634431,
+                createdOn: new Date(),//now
+                expiresOn: new Date(Date.now() + 15 * 60 * 1000), // mins * secs * msecs
+                text: "Hallo",
+                own:true
+                }]           // #10 #message s property in #chl object
 
 };
 

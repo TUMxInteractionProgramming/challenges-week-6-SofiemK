@@ -59,22 +59,23 @@ function switchChannel(channelObject, channelElement) {
     /* highlight the selected #channel.
        This is inefficient (jQuery has to search all channel list items), but we'll change it later on */
     $('#channels li').removeClass('selected');
-    $('#channels li:contains(' + channelObject.name + ')').addClass('selected');
+    /*$('#channels li:contains(' + channelObject.name + ')').addClass('selected');*/
 
 
-    //New not working 
     //#select highlight the selected #channel.
-    /*$(channelElement).addClass('selected');*/
+    $(channelElement).addClass('selected');
 
     /* store selected channel in global variable */
-    /*currentChannel = channelObject;*/
+    currentChannel = channelObject;
 
-    schowMessages(channelObject);
+    showMessages(channelObject);
 }
 
 
 function showMessages(channelObject){
-    $(channelObject.messages).each(createMessageElement());
+    console.log("Show messages");
+    $.each(channelObject.messages,createMessageElement());
+    
 }
 
 /* liking a channel on #click */
@@ -240,13 +241,14 @@ function listChannels(criterion) {
     // #10 #sorting #duplicate: empty list
     $('#channels ul').empty();
 
+    $(currentChannel).addClass('selected');
+
     /* #10 append channels from #array with a #for loop */
     for (i = 0; i < channels.length; i++) {
         $('#channels ul').append(createChannelElement(channels[i]));
     };
 
-    //NEEEEWWWWWW
-    /*$(currentChannel).addClass('selected');*/
+    
 }
 
 /**
@@ -347,16 +349,15 @@ function createChannelElement(channelObject) {
     // The chevron
     $('<i>').addClass('fas').addClass('fa-chevron-right').appendTo(meta);
 
+     //attach a click event listener to <li> 
+     $(channel).click(function () {
+        console.log("Channel is clicked")
+        switchChannel(channelObject, this)
+    });
+
     // return the complete channel
     return channel;
     
-    //nnnneeeeww
-    //attach a click event listener to <li> 
-    /*var channel = $('<li>').text(channelObject.name);
-
-    channel.click(function () {
-        switchChannel(channelObject, this)
-    });*/
 }
 
 /**
